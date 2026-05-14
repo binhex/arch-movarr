@@ -6,8 +6,12 @@ install_path="/opt/movarr"
 # ensure we are in the install location
 cd "${install_path}" || echo "Path does not exist '${install_path}'"
 
-# create virtualenv
-uv venv --quiet
+if [[ ! -d ./.venv ]]; then
+  echo "[INFO] No virtualenv found, creating via uv..."
+  uv venv --quiet
+else
+  echo "[INFO] Virtualenv already exists, skipping creation..."
+fi
 
 # install dependencies from pyproject.toml into virtualenv and create uv.lock
 uv sync --group dev
