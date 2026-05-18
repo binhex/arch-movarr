@@ -125,6 +125,7 @@ env_vars=(
 	"MOVARR_DB_PATH::false:false"
 	"MOVARR_LOG_PATH::false:false"
 	"MOVARR_PID_PATH::false:false"
+	"ENABLE_STARTUP_SCRIPTS:no:false:false"
 )
 
 # Process each environment variable
@@ -140,6 +141,48 @@ sed -i '/# ENVVARS_PLACEHOLDER/{
     r /tmp/envvars_heredoc
 }' /usr/bin/init.sh
 rm /tmp/envvars_heredoc
+
+# config
+####
+
+cat <<'EOF' > /tmp/config_heredoc
+
+if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
+
+	# define path to scripts
+	base_path="/config/movarr"
+	user_script_path="${base_path}/scripts"
+
+	mkdir -p "${user_script_path}"
+
+	# copy example startup script
+	# note slence stdout/stderr and ensure exit code 0 due to src file may not exist (symlink)
+	if [[ ! -f "${user_script_path}/example-startup-script.sh" ]]; then
+		cp "/home/nobody/scripts/example-startup-script.sh" "${user_script_path}/example-startup-script.sh" 2> /dev/null || true
+	fi
+
+	# find any scripts located in "${user_script_path}"
+	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
+
+	# loop over scripts, make executable and source
+	for i in ${user_scripts}; do
+		chmod +x "${i}"
+		echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
+		source "${i}" &
+	done
+
+	# change ownership as we are running as root
+	chown -R nobody:users "${base_path}"
+
+fi
+EOF
+
+# replace config placeholder string with contents of file (here doc)
+sed -i '/# CONFIG_PLACEHOLDER/{
+    s/# CONFIG_PLACEHOLDER//g
+    r /tmp/config_heredoc
+}' /usr/bin/init.sh
+rm /tmp/config_heredoc
 
 # cleanup
 cleanup.sh
