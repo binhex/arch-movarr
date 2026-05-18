@@ -37,6 +37,7 @@ docker run -d \
     -e MOVARR_PROWLARR_HOST=<prowlarr host> \
     -e MOVARR_PROWLARR_PORT=<prowlarr port> \
     -e MOVARR_PROWLARR_API_KEY=<prowlarr api key> \
+    -e ENABLE_STARTUP_SCRIPTS=yes|no \
     -e HEALTHCHECK_COMMAND=<command> \
     -e HEALTHCHECK_ACTION=<action> \
     -e HEALTHCHECK_HOSTNAME=<hostname> \
@@ -68,9 +69,10 @@ docker run -d \
     -e MOVARR_PROWLARR_HOST=binhex-prowlarr \
     -e MOVARR_PROWLARR_PORT=9696 \
     -e MOVARR_PROWLARR_API_KEY=your-api-key \
+    -e ENABLE_STARTUP_SCRIPTS=yes \
     -e UMASK=000 \
-    -e PUID=99 \
-    -e PGID=100 \
+    -e PUID=0 \
+    -e PGID=0 \
     ghcr.io/binhex/arch-movarr
 ```
 
