@@ -24,7 +24,6 @@ docker run -d \
     -v <path for media files>:/media \
     -v <path for data files>:/data \
     -v /etc/localtime:/etc/localtime:ro \
-    -e MOVARR_DAEMON=yes \
     -e MOVARR_LOG_LEVEL=INFO \
     -e MOVARR_QBT_HOST=<qbittorrent host> \
     -e MOVARR_QBT_PORT=<qbittorrent port> \
