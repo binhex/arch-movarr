@@ -37,5 +37,4 @@ movarr \
   --jackett-api-key "${MOVARR_JACKETT_API_KEY}" \
   --prowlarr-host "${MOVARR_PROWLARR_HOST}" \
   --prowlarr-port "${MOVARR_PROWLARR_PORT}" \
-  --prowlarr-api-key "${MOVARR_PROWLARR_API_KEY}" \
-  --daemon
+  --prowlarr-api-key "${MOVARR_PROWLARR_API_KEY}"

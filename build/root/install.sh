@@ -107,7 +107,6 @@ source utils.sh
 # Define environment variables to process
 # Format: "VAR_NAME:DEFAULT_VALUE:REQUIRED:MASK"
 env_vars=(
-	"MOVARR_DAEMON::true:false"
 	"MOVARR_LOG_LEVEL:INFO:false:false"
 	"MOVARR_LIBRARY_PATH_LIST::false:false"
 	"MOVARR_QBT_HOST::true:false"
