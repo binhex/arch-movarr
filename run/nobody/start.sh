@@ -19,6 +19,11 @@ uv sync --group dev
 # activate vrtualenv
 source './.venv/bin/activate'
 
+if [[ -n "${MOVARR_LIBRARY_PATH_LIST}" ]]; then
+  echo "[INFO] Legacy option detected: MOVARR_LIBRARY_PATH_LIST. Please use MOVARR_LIBRARY_PATH instead."
+  MOVARR_LIBRARY_PATH="${MOVARR_LIBRARY_PATH_LIST}"
+fi
+
 # run movarr
 movarr \
   --config-path "${MOVARR_CONFIG_PATH}" \
@@ -26,7 +31,7 @@ movarr \
   --db-path "${MOVARR_DB_PATH}" \
   --pid-path "${MOVARR_PID_PATH}" \
   --log-level "${MOVARR_LOG_LEVEL}" \
-  --library-path-list "${MOVARR_LIBRARY_PATH_LIST}" \
+  --library-path "${MOVARR_LIBRARY_PATH}" \
   --qbt-host "${MOVARR_QBT_HOST}" \
   --qbt-port "${MOVARR_QBT_PORT}" \
   --qbt-username "${MOVARR_QBT_USERNAME:-admin}" \
