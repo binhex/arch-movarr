@@ -59,6 +59,12 @@ install_path="/opt/movarr"
 mkdir -p "${install_path}"
 github.sh --install-path "${install_path}" --github-owner 'binhex' --github-repo 'movarr' --query-type 'release' --download-branch 'main'
 
+# create virtualenv and install dependencies at build time
+cd "${install_path}"
+uv venv
+uv sync --frozen
+cd /
+
 # container perms
 ####
 
