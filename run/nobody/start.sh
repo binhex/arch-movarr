@@ -14,7 +14,7 @@ else
 fi
 
 # install dependencies from pyproject.toml into virtualenv and create uv.lock
-uv sync --group dev
+uv sync --no-dev
 
 # activate vrtualenv
 source './.venv/bin/activate'
