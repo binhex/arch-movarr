@@ -33,12 +33,6 @@ ADD config/nobody/ /home/nobody/
 RUN chmod +x /root/*.sh && \
 	/bin/bash /root/install.sh "${APPNAME}" "${RELEASETAG}" "${TARGETARCH}"
 
-# docker settings
-#################
-
-# Security Patch for CVE-2021-44228
-ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
-
 # healthcheck
 #############
 
